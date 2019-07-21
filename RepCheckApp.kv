@@ -23,26 +23,75 @@
 <ViewAddEvent>:
     id: child_root
     orientation: 'vertical'
-    center: .2,.2
-    Label:
-        id: user
-        text: 'Имя'.encode('cp1251').decode('utf-8')
-        font_size: 50
     BoxLayout:
-        size_hint: .7, .7
-        id: box_save
         orientation: 'vertical'
-        Button:
-            id: save_add
-            text: 'Сохранить'.encode('cp1251').decode('utf-8')
-            font: 'Arial'
-            font_size: 26
-        Button:
-            id: close_add
-            text: 'Закрыть'.encode('cp1251').decode('utf-8')
-            font: 'Arial'
-            font_size: 26
-            on_press: root.close_child()
+        border: (4, 4, 4, 4)
+        id: add_save
+        BoxLayout:
+            border: (4, 4, 4, 4)
+            orientation: 'vertical'
+            height: add_save.height / 3
+            id: add_save_input
+            BoxLayout:
+                id: add_save_name
+                orientation: 'horizontal'
+                Label:
+                    id: user
+                    text: 'Данные ученика'.encode('cp1251').decode('utf-8')
+                    font_size: 20
+                TextInput:
+                    id: username
+            BoxLayout:
+                id: add_save_unit
+                orientation: 'horizontal'
+                Label:
+                    id: unit
+                    text: 'Тема урока'.encode('cp1251').decode('utf-8')
+                    font_size: 20
+                TextInput:
+                    id: Unit
+            BoxLayout:
+                id: add_save_cost
+                orientation: 'horizontal'
+                Label:
+                    id: cost
+                    text: 'цена'.encode('cp1251').decode('utf-8')
+                    font_size: 20
+                TextInput:
+                    id: Cost
+            BoxLayout:
+                id: add_save_date
+                orientation: 'horizontal'
+                Label:
+                    id: date_name
+                    text: 'дата и время занятия'.encode('cp1251').decode('utf-8')
+                BoxLayout:
+                    id: add_save_date_name
+                    orientation: 'horizontal'
+                    DatePicker:
+                        id: date
+                    TextInput:
+                        id: hour
+        BoxLayout:
+            orientation: 'horizontal'
+            border: (4, 4, 4, 4)
+            Button:
+                id: save_add
+                size_hint_x: .1
+                text: 'Сохранить'.encode('cp1251').decode('utf-8')
+                font: 'Arial'
+                font_size: 26
+                on_press: root.add_record(username.text,Unit.text, Cost.text, date.text, hour.text)
+            Button:
+                id: close_add
+                size_hint_x: .1
+                text: 'Закрыть'.encode('cp1251').decode('utf-8')
+                font: 'Arial'
+                font_size: 26
+                on_press: root.close_child()
+
+
+
 
 
 
