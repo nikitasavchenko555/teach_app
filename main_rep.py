@@ -3,13 +3,13 @@ from datetime import datetime
 from logging import basicConfig, error, info
 import kivy.app
 from kivy.uix.boxlayout import BoxLayout
-import kivy.uix.label
 from kivy.logger import Logger
 from kivy.uix.modalview import ModalView
 import kivy.uix.textinput
 from kivy.uix.popup import Popup
-import kivy.uix.button
+from kivy.uix.button import Button
 import re
+
 
 import conf_rep
 import datepicker
@@ -36,19 +36,19 @@ def sql_table_select():
     except:
         cursor_table.execute(
             "create table list_lessons (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-            "name text, themas text, date_lessons text, salary numeric, check_salary numeric)")
+            "name text, themas text, date_lessons text, salary numeric, check_state real, check_salary real)")
 
-def sql_table_insert(username,Unit, Cost, date, hour):
+
+def sql_table_insert(username, Unit, Cost, date, hour, check_state, check_salary):
     conn = sqlite3.connect('rep.db')
     info("Соединение с БД успешно установлено")
     cursor_table = conn.cursor()
     try:
-        hour_1 = re.sub(r'\]', ':', str(hour))
-        Logger.info('час: {}'.format(hour_1))
-        date_str = datetime.combine(date, hour)
-        Logger.info(date_str)
-        date_str_1 = date_str.strftime("%d/%m/%y %H:%M")
-        cur_insert = "insert into list_lessons values ({}, {}, {}, {}, {}, null)".format(username, str(Unit), date_str_1, Cost)
+        Logger.info('час: {}'.format(hour))
+        date_str = "{} {}".format(date, hour)
+        Logger.info("полученная дата: {}".format(date_str))
+        cur_insert = """insert into list_lessons (name, themas, date_lessons,salary, check_state, check_salary )
+         values ('{0}', '{1}', '{2}', '{3}', {4}, {5})""".format(username, Unit, date_str, Cost, check_state, check_salary)
         Logger.info(cur_insert)
         cur_insert_result = cursor_table.execute(cur_insert)
         return cur_insert_result
@@ -60,26 +60,36 @@ class MyLayout():
     pass
 
 
-
-
 class RepCheckAppBoxLayout(BoxLayout):
     info("Главный виджет")
+
     def child_save(self):
         Logger.info('Запускаем окно для добавления записи')
         view = ViewAddEvent(size_hint=(1, 1))
         view.open()
 
+
 class ViewAddEvent(ModalView):
     def close_child(self):
         Logger.info('Закрываем окно для добавления записи')
         self.dismiss()
-    def add_record(self, username,Unit, Cost, date, hour):
+
+    def add_record(self, username, Unit, Cost, date, hour, check_state, check_salary):
         Logger.info('добавляем атрибуты')
-        str_log = "Получены атрибуты: {}, '{}', {}, {}, {}".format(username,Unit, Cost, date, str(hour))
+        str_log = "Получены атрибуты: {}, '{}', {}, {}, {}, {}, {}".format(username, Unit, Cost, date, hour, check_state, check_salary)
         Logger.info(str_log)
-        if sql_table_insert(username,Unit, Cost, date, str(hour)):
-            popup = Popup(title='Запись добавлена',
-                          content=kivy.Button(text='закрыть окно'))
+        if check_state:
+            check_state = 1
+        else:
+            check_state = 0
+        if check_salary:
+            check_salary = 1
+        else:
+            check_salary = 0
+        if sql_table_insert(username, Unit, Cost, date, hour, check_state, check_salary):
+            content = Button(text='закрыть окно')
+            popup = Popup(title='Запись добавлена', content=content)
+            content.bind(on_press=popup.dismiss)
             popup.open()
 
 

@@ -72,6 +72,19 @@
                         id: date
                     TextInput:
                         id: hour
+            BoxLayout:
+                id: add_save_check
+                orientation: 'horizontal'
+                Label:
+                    id: check_state
+                    text: 'урок пройден'.encode('cp1251').decode('utf-8')
+                CheckBox:
+                    id: check_state_box
+                Label:
+                    id: check_salary
+                    text: 'урок оплачен'.encode('cp1251').decode('utf-8')
+                CheckBox:
+                    id: check_salary_box
         BoxLayout:
             orientation: 'horizontal'
             border: (4, 4, 4, 4)
@@ -81,7 +94,7 @@
                 text: 'Сохранить'.encode('cp1251').decode('utf-8')
                 font: 'Arial'
                 font_size: 26
-                on_press: root.add_record(username.text,Unit.text, Cost.text, date.text, hour.text)
+                on_press: root.add_record(username.text,Unit.text, Cost.text, date.text, hour.text, check_state_box.active, check_salary_box.active )
             Button:
                 id: close_add
                 size_hint_x: .1
