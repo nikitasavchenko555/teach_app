@@ -13,6 +13,13 @@
             text: 'Расписание'.encode('cp1251').decode('utf-8')
             font: 'Arial'
             font_size: 26
+            on_press: main_root.child_view()
+        Button:
+            id: stat
+            text: 'Статистика'.encode('cp1251').decode('utf-8')
+            font: 'Arial'
+            font_size: 26
+            on_press: main_root.stat_view_all()
         Button:
             id: add
             text: 'Добавить запись'.encode('cp1251').decode('utf-8')
@@ -102,6 +109,94 @@
                 font: 'Arial'
                 font_size: 26
                 on_press: root.close_child()
+
+<MyLayout>:
+    id: lay
+
+<SchedulerView>:
+    id: shed_view
+
+<StatView>:
+    id: stat_view
+
+<ViewUnit>:
+    id: child_view
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'vertical'
+        border: (4, 4, 4, 4)
+        id: unit_one
+        BoxLayout:
+            border: (4, 4, 4, 4)
+            orientation: 'vertical'
+            height: unit_one.height / 3
+            id: unit_one_box
+            BoxLayout:
+                id: unit_box
+                orientation: 'horizontal'
+                Label:
+                    id: user
+                    text: 'Данные ученика'.encode('cp1251').decode('utf-8')
+                    font_size: 25
+                Label:
+                    id: username
+            BoxLayout:
+                id: unit_one_unit
+                orientation: 'horizontal'
+                Label:
+                    id: unit
+                    text: 'Тема урока'.encode('cp1251').decode('utf-8')
+                    font_size: 25
+                Label:
+                    id: Unit
+            BoxLayout:
+                id: unit_one_cost
+                orientation: 'horizontal'
+                Label:
+                    id: cost
+                    text: 'Цена'.encode('cp1251').decode('utf-8')
+                    font_size: 25
+                Label:
+                    id: Cost
+            BoxLayout:
+                id: unit_one_date
+                orientation: 'horizontal'
+                Label:
+                    id: unit_date_name
+                    text: 'дата и время занятия'.encode('cp1251').decode('utf-8')
+                BoxLayout:
+                    id: unit_one_date_name
+                    orientation: 'horizontal'
+                    Label:
+                        id: date
+                        font_size: 25
+            BoxLayout:
+                id: unit_one_check_state
+                orientation: 'horizontal'
+                Label:
+                    id: unit_check_state
+                    font_size: 25
+                Label:
+                    id: unit_check_salary
+                    font_size: 25
+        BoxLayout:
+            orientation: 'horizontal'
+            border: (4, 4, 4, 4)
+            Button:
+                id: unit_one_button
+                size_hint_x: .1
+                text: 'Назад'.encode('cp1251').decode('utf-8')
+                font: 'Arial'
+                font_size: 26
+                on_press: child_view.close_child()
+            Button:
+                id: unit_two_button
+                size_hint_x: .1
+                text: 'Редактировать'.encode('cp1251').decode('utf-8')
+                font: 'Arial'
+                font_size: 26
+
+
 
 
 
