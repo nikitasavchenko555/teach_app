@@ -132,13 +132,22 @@
             height: unit_one.height / 3
             id: unit_one_box
             BoxLayout:
+                id: id_unit_box
+                orientation: 'horizontal'
+                Label:
+                    id: id_unit_text
+                    text: 'Номер занятия'.encode('cp1251').decode('utf-8')
+                    font_size: 25
+                Label:
+                    id: id_unit
+            BoxLayout:
                 id: unit_box
                 orientation: 'horizontal'
                 Label:
                     id: user
                     text: 'Данные ученика'.encode('cp1251').decode('utf-8')
                     font_size: 25
-                Label:
+                TextInput:
                     id: username
             BoxLayout:
                 id: unit_one_unit
@@ -147,7 +156,7 @@
                     id: unit
                     text: 'Тема урока'.encode('cp1251').decode('utf-8')
                     font_size: 25
-                Label:
+                TextInput:
                     id: Unit
             BoxLayout:
                 id: unit_one_cost
@@ -156,7 +165,7 @@
                     id: cost
                     text: 'Цена'.encode('cp1251').decode('utf-8')
                     font_size: 25
-                Label:
+                TextInput:
                     id: Cost
             BoxLayout:
                 id: unit_one_date
@@ -164,6 +173,7 @@
                 Label:
                     id: unit_date_name
                     text: 'дата и время занятия'.encode('cp1251').decode('utf-8')
+                    font_size: 25
                 BoxLayout:
                     id: unit_one_date_name
                     orientation: 'horizontal'
@@ -175,10 +185,14 @@
                 orientation: 'horizontal'
                 Label:
                     id: unit_check_state
-                    font_size: 25
+                    text: 'урок пройден'.encode('cp1251').decode('utf-8')
+                CheckBox:
+                    id: unit_check_state_box
                 Label:
                     id: unit_check_salary
-                    font_size: 25
+                    text: 'урок оплачен'.encode('cp1251').decode('utf-8')
+                CheckBox:
+                    id: unit_check_salary_box
         BoxLayout:
             orientation: 'horizontal'
             border: (4, 4, 4, 4)
@@ -192,9 +206,10 @@
             Button:
                 id: unit_two_button
                 size_hint_x: .1
-                text: 'Редактировать'.encode('cp1251').decode('utf-8')
+                text: 'Сохранить изменения'.encode('cp1251').decode('utf-8')
                 font: 'Arial'
                 font_size: 26
+                on_press: child_view.update_child(username.text, Unit.text, Cost.text, date.text, unit_check_state.text, unit_check_salary.text, id_unit.text)
 
 
 

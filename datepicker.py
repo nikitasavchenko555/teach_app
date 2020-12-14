@@ -105,7 +105,8 @@ class DatePicker(TextInput):
         
     def update_value(self, inst):
         """ Update textinput value on popup close """
-            
+        #date_input = tuple(self.cal.active_date)
+        #if date_input
         self.text = "%s-%s-%s" % tuple(self.cal.active_date)
         self.focus = False
 
@@ -202,8 +203,8 @@ class CalendarWidget(RelativeLayout):
     
     def get_quarter(self):
         """ Get caledar and months/years nums for quarter """
-        
         self.quarter_nums = calc_quarter(self.active_date[2], 
+        
                                                   self.active_date[1])
         self.quarter = get_quarter(self.active_date[2], 
                                             self.active_date[1])
